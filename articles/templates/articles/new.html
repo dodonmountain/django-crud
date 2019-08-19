@@ -1,0 +1,10 @@
+{% extends 'articles/base.html' %}
+{% block body %}
+<form action="/articles/create/" method="POST">
+  {% csrf_token %}
+  <input style="width: 80vw;" "text" name="th" id="th" placeholder="Title">
+  <input style="width: 80vw; height:40vh; text-align: start;text-justify: auto; font-size: 1rem; padding-top: 0;"="text" name="tb" id="tb" placeholder="Put in ur contents">
+  <br>
+  <input style="width: 80vw; height: 3rem; text-justify: auto; font-size: 1rem;" type="submit" value="글 저장">
+</form>
+{% endblock %}
