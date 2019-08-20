@@ -1,10 +1,18 @@
 {% extends 'articles/base.html' %}
 {% block body %}
+<div class="page-header">
+    <h1>새 글 작성 <small>make ur text</small></h1>
+  </div>
+<div class="container">
 <form action="/articles/create/" method="POST">
   {% csrf_token %}
-  <input style="width: 80vw;" "text" name="th" id="th" placeholder="Title">
-  <input style="width: 80vw; height:40vh; text-align: start;text-justify: auto; font-size: 1rem; padding-top: 0;"="text" name="tb" id="tb" placeholder="Put in ur contents">
+  <input class="form-control" name="th" id="th" placeholder="Title">
   <br>
-  <input style="width: 80vw; height: 3rem; text-justify: auto; font-size: 1rem;" type="submit" value="글 저장">
+  <div class="form-group">
+      <label for="new">내용을 작성하세요!</label>
+      <textarea class="form-control" id="new" rows="30" name="tb" id="tb" placeholder="Put in ur contents"></textarea>
+  </div>
+  <input style="height: 5rem; font-size: 3rem;" type="submit" value="Save!">
 </form>
+</div>
 {% endblock %}

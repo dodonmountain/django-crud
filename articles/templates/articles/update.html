@@ -1,10 +1,18 @@
 {% extends 'articles/base.html' %}
 {% block body %}
+<div class="page-header">
+    <h1>글 수정<small>Modify ur text</small></h1>
+  </div>
+<div class="container">
 <form action="/articles/{{ article.pk }}/upd" method="POST">
   {% csrf_token %}
-  <input style="width: 80vw;" "text" name="th" id="th" placeholder="{{ article.title }}">
-  <input class="text-area" style="width: 80vw; height:40vh; word-wrap:break-all;" name="tb" id="tb" placeholder="" value="{{ article.content }}">
+  <input class="form-control" name="th" id="th" value='{{ article.title }}'>
   <br>
-  <input style="width: 80vw; height: 3rem; text-justify: auto; font-size: 1rem;" type="submit" value="글 수정">
+  <div class="form-group">
+      <label for="new">내용을 작성하세요!</label>
+      <textarea class="form-control" id="new" rows="30" name="tb" id="tb" >{{ article.content }}</textarea>
+  </div>
+  <input style="height: 5rem; font-size: 3rem;" type="submit" value="Save!">
 </form>
+</div>
 {% endblock %}

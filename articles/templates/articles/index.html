@@ -1,15 +1,21 @@
 {% extends 'articles/base.html' %}
 {% block body %}
-<div style="display:flex; justify-content: center;""><h1 style = " font-family: Arial, Helvetica, sans-serif; font-size:
-  4rem; font-weight: 600">게시판에 오신걸 환영합니다</h1>
+<div class="page-header bg-primary">
+    <h1>CRUD Example!<small class="text-danger text-shadow">게시판입니다.</small></h1>
 </div>
-
-<h2><a href="/articles/new/"><i class="fas fa-pencil-alt"></i>글 작성하기</a></h2>
-<ul class="list-group">
-{% for article in articles %}
-    <li class="list-group-item">{{ article.id }}번 게시물_생성일::　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　{{ article.created_at }}</li>
-    <li class="list-group-item"><h3>{{ article.title }}</h3></li>
-    <li class="list-group-item"><div class="col-3"><a href="/articles/{{ article.pk }}">글 보러가기</a></div></li>
-{% endfor %}
-</ul>
+<div class="fixed-bottom"><h2><a href="/articles/new/"><i class="fas fa-pencil-alt"></i>Write</a></h2></div>
+<div class="container">
+  <ul class="list-group shadow">
+    {% for article in articles %}
+    <li class="list-group-item" style="background-color:skyblue;">
+      No.{{ article.id }}　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　_생성일:{{ article.created_at }}
+    </li>
+    <li class="list-group-item">
+      <h3><a href="/articles/{{ article.pk }}"><b>{{ article.title }}</b></a></h3>
+    </li>
+    <li class="list-group-item bg-primary"><a href="/articles/{{ article.pk }}"><i class="far fa-eye">자세히 보러가기</i></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
