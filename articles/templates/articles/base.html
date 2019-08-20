@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,22 @@
   <style>
     body {
       -webkit-text-fill-color: whitesmoke;
-      -webkit-text-stroke: 1pt black;
-      background-color:lightgreen;
+      -webkit-text-stroke: 0.5pt black;
+    }
+
+    a {
+      text-decoration: none;
     }
   </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/c596c9d4e2.js"></script>
 </head>
+
 <body>
   {% block body %}
   {% endblock %}
 </body>
+
 </html>
