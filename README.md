@@ -200,7 +200,7 @@ article = Article.objects.create(title='글', content='내용')
 ### 3. Update
 
 ```python
-article = Article.ovjects.get(pk=1)
+article = Article.objects.get(pk=1)
 article.content = '내용 수정'
 article.save()
 ```

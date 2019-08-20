@@ -1,0 +1,9 @@
+{% extends 'articles/base.html' %}
+{% block body %}
+<div style = "display:flex; justify-content: center;""><h1 style = "font-family: Arial, Helvetica, sans-serif; font-size: 4rem; font-weight: 600">No. {{ article.id }}- <br>{{ article.title }}</h1></div>
+<div style="box-sizing: border-box; border: 2px solid grey; text-indent: 20pt; margin: 3rem; padding: 3rem;">
+    <p>{{ article.content }} </p>
+</div>
+
+
+{% endblock %}
