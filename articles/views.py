@@ -40,3 +40,19 @@ def delete(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     article.delete()
     return redirect('/articles/')
+
+def update(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    context = {
+        'article':article,
+    }
+    return render(request, 'articles/update.html', context)
+
+def upd(request, article_pk):
+    tb = request.POST.get('tb')
+    th = request.POST.get('th')
+    article = Article.objects.get(pk=article_pk)
+    article.content = tb
+    article.title = th
+    article.save()
+    return redirect('/articles/')

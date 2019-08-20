@@ -4,7 +4,9 @@
 <div style="box-sizing: border-box; border: 2px solid grey; text-indent: 20pt; margin: 3rem; padding: 3rem;">
     <p>{{ article.content }} </p>
 </div>
-<a href="/articles/{{ article.pk }}/del"><i class="fas fa-trash-alt">delete</i></a> 
+<h2><a href="/articles/{{ article.pk }}/del"><i class="fas fa-trash-alt">delete</i></a> </h2>
+<h2><a href="/articles/{{ article.pk }}/update"><i class="fab fa-modx">modify</i></a> </h2>
+
 
 
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'articles/base.html' %}
+{% block body %}
+<form action="/articles/{{ article.pk }}/upd" method="POST">
+  {% csrf_token %}
+  <input style="width: 80vw;" "text" name="th" id="th" placeholder="{{ article.title }}">
+  <input class="text-area" style="width: 80vw; height:40vh; word-wrap:break-all;" name="tb" id="tb" placeholder="" value="{{ article.content }}">
+  <br>
+  <input style="width: 80vw; height: 3rem; text-justify: auto; font-size: 1rem;" type="submit" value="글 수정">
+</form>
+{% endblock %}

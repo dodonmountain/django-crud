@@ -4,12 +4,12 @@
   4rem; font-weight: 600">게시판에 오신걸 환영합니다</h1>
 </div>
 
-<a href="/articles/new/"><i class="fas fa-pencil-alt"></i>글 작성하기</a>
+<h2><a href="/articles/new/"><i class="fas fa-pencil-alt"></i>글 작성하기</a></h2>
+<ul class="list-group">
 {% for article in articles %}
-<div class="container">
-    <p>{{ article.title }}
-        <a href="/articles/{{ article.pk }}">글 보러가기</a>
-      </p>
-</div>
+    <li class="list-group-item">{{ article.id }}번 게시물_생성일::　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　{{ article.created_at }}</li>
+    <li class="list-group-item"><h3>{{ article.title }}</h3></li>
+    <li class="list-group-item"><div class="col-3"><a href="/articles/{{ article.pk }}">글 보러가기</a></div></li>
 {% endfor %}
+</ul>
 {% endblock %}
