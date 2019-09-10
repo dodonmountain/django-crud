@@ -4,7 +4,7 @@
     <h1>글 수정<small>Modify ur text</small></h1>
   </div>
 <div class="container">
-<form action="/articles/{{ article.pk }}/upd" method="POST">
+<form action="{% url 'articles:upd' articles.pk %}" method="POST">
   {% csrf_token %}
   <input class="form-control" name="th" id="th" value='{{ article.title }}'>
   <br>

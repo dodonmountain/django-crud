@@ -3,7 +3,7 @@
 <div class="page-header bg-primary">
     <h1>CRUD Example!<small class="text-danger text-shadow">게시판입니다.</small></h1>
 </div>
-<div class="fixed-bottom"><h2><a href="/articles/new/"><i class="fas fa-pencil-alt"></i>Write</a></h2></div>
+<div class="fixed-bottom"><h2><a href="{% url 'articles:new' %}"><i class="fas fa-pencil-alt"></i>Write</a></h2></div>
 <div class="container">
   <ul class="list-group shadow">
     {% for article in articles %}
@@ -11,9 +11,9 @@
       No.{{ article.id }}　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　_생성일:{{ article.created_at }}
     </li>
     <li class="list-group-item">
-      <h3><a href="/articles/{{ article.pk }}"><b>{{ article.title }}</b></a></h3>
+      <h3><a href="{% url 'articles:detail' article.pk %}"><b>{{ article.title }}</b></a></h3>
     </li>
-    <li class="list-group-item bg-primary"><a href="/articles/{{ article.pk }}"><i class="far fa-eye">자세히 보러가기</i></a>
+    <li class="list-group-item bg-primary"><a href="{% url 'articles:detail' article.pk %}"><i class="far fa-eye">자세히 보러가기</i></a>
     </li>
     {% endfor %}
   </ul>

@@ -4,7 +4,7 @@
     <h1>새 글 작성 <small>make ur text</small></h1>
   </div>
 <div class="container">
-<form action="/articles/create/" method="POST">
+<form action="{% url 'articles:create' %}" method="POST">
   {% csrf_token %}
   <input class="form-control" name="th" id="th" placeholder="Title">
   <br>

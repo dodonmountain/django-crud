@@ -17,7 +17,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'<{self.id}> - {self.title}'
+        return f'{self.id} - {self.title}'
 
 # models.py     : define python class 
 #               : 모델 설계도
