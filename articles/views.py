@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Article
+from .models import Article, Comment
 from django.views.decorators.http import require_POST
 
 
@@ -32,8 +32,10 @@ def create(request):
 
 def detail(request, article_pk):
     articles = Article.objects.get(pk=article_pk)
+    comments = articles.comment_set.all()
     context = {
         'articles': articles,
+        'comments': comments,
     }
     return render(request, 'articles/detail.html',context)
 
@@ -60,3 +62,12 @@ def upd(request, article_pk):
     article.title = th
     article.save()
     return redirect('articles:index')
+
+def comment_create(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    c_content = request.POST.get('comment')
+    comment = Comment()
+    comment.content = c_content
+    comment.article = article
+    comment.save()
+    return redirect('articles:detail', article.pk)
