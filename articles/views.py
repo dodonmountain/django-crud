@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Article
-# Create your views here.
+from django.views.decorators.http import require_POST
+
+
 def index(request):
     articles = Article.objects.all()
     titles = []
@@ -35,11 +37,14 @@ def detail(request, article_pk):
     }
     return render(request, 'articles/detail.html',context)
 
+@require_POST
 def delete(request, article_pk):
     article = Article.objects.get(pk=article_pk)
-    article.delete()
-    return redirect('articles:index')
-
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles:index')
+    # else:
+    #     return redirect('articles:index')
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     context = {
