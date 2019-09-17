@@ -1,18 +1,17 @@
 {% extends 'articles/base.html' %}
 {% block body %}
 <div class="page-header">
-    <h1>글 수정<small>Modify ur text</small></h1>
+    <h1>글 수정<small>글을 써 주세요.</small></h1>
   </div>
 <div class="container">
-<form action="{% url 'articles:upd' articles.pk %}" method="POST">
-  {% csrf_token %}
-  <input class="form-control" name="th" id="th" value='{{ article.title }}'>
   <br>
   <div class="form-group">
-      <label for="new">내용을 작성하세요!</label>
-      <textarea class="form-control" id="new" rows="30" name="tb" id="tb" >{{ article.content }}</textarea>
+      <form action="" method="POST">
+          {% csrf_token %}
+          {{ article_form.as_p }}
+          <input class="btn btn-success"type="submit" value="제출"">
+        </form>
   </div>
-  <input style="height: 5rem; font-size: 3rem;" type="submit" value="Save!">
 </form>
 </div>
 {% endblock %}

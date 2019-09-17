@@ -1,8 +1,14 @@
 {% extends 'articles/base.html' %}
 {% block body %}
-<div class="page-header">
+{% if request.resolver_match.url_name == 'create' %}
+  <div class="page-header">
     <h1>새 글 작성 <small>글을 써 주세요.</small></h1>
   </div>
+{% else %}
+  <div class="page-header">
+    <h1>글 수정 <small>글을 고쳐 주세요.</small></h1>
+  </div>
+{% endif %}
 <div class="container">
   <br>
   <div class="form-group">
