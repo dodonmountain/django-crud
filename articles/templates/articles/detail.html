@@ -3,6 +3,7 @@
 <div class="page-header">
   <h1>글 읽기<small>장시간 독서는 눈에 해롭습니다.</small></h1>
 </div>
+<div class="container">
 <div class='mx-auto text-center border-dark'>
   <blockquote class="blockquote">
     <h3><small>Title</small></h3>
@@ -10,44 +11,53 @@
     <footer class="blockquote-footer">no. {{ articles.id }}</footer>
   </blockquote>
 </div>
+</div>
 <hr>
-<div class="container border-dark">
-  <div class="card border-dark" style="width: 90rem;">
-    <div class="card-body text-light bg-light ">
+<div class="container">
       <p class="card-text bg-dark border-dark">{{ articles.content }}</p>
-        <a href="{% url 'articles:index' %}" class="card-link "><i class="fas fa-home"></i><button class="btn btn-outline" type="button submit" id="button-addon2">Home</button></a>
+      <div class="form-group d-flex justify-content-between">
+          <form action="{% url 'articles:index' %}" method="POST">
+              <button class="btn btn-outline" type="button submit"
+                id="button-addon2">Home</button>
+            </form>
         <form action="{% url 'articles:delete' articles.pk %}" method="POST" onclick=" return confirm('Are you sure?')">
           {% csrf_token %}
-          <i class="fab fa-modx"></i><button class="btn btn-outline" type="button submit" id="button-addon2">Delete</button>
+          <button class="btn btn-outline" type="button submit"
+            id="button-addon2">Delete</button>
         </form>
         <form action="{% url 'articles:update' articles.pk %}" method="POST" onclick=" return confirm('Are you sure?')">
           {% csrf_token %}
-          <i class="fab fa-modx"></i><button class="btn btn-outline" type="button submit" id="button-addon2">Modify</button>
+          <button class="btn btn-outline" type="button submit" id="button-addon2">Modify</button>
         </form>
-        <h2>댓글 작성</h2>
-        <form action="{% url 'articles:comment_create' articles.pk %}" method="post">
-          {% csrf_token %}
-          <input type="text" name="comment" id="comment">
-          <input type="submit" value="얍">
-        </form>
-        <div class="container">
-          <div class="list">
-            <h3>댓글 수:{{ comments.count }}</h3>
-            {% for comment in articles.comment_set.all %}
-            <li>{{ comment.content }}</li>
-            <form action="{% url 'articles:comment_delete' articles.pk comment.pk %}" method="post">
+      </div>
+
+      <div class="container">
+        <div class="list">
+          {% load bootstrap4 %}
+          <h3>댓글 수:{{ articles.comment_set.all.count }}</h3>
+          {% for i in articles.comment_set.all %}
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ i.content }}
+              <span class="badge badge-primary badge-pill">삭제</span>
+            </li>
+          </ul>
+          {% endfor %}
+          <div class="form-group">
+            <form action="{% url 'articles:comment_create' articles.pk %}" method="POST">
               {% csrf_token %}
-              {{ comment.created_at }}<input class='border btn-dark' type="submit" value="삭제">
+              {% bootstrap_form comment_form %}
+              {% buttons %}
+              <button type="submit" class="btn btn-primary">완료</button>
+              {% endbuttons %}
             </form>
-            {% empty %}
-            <p>댓글이 없어요...</p>
-            {% endfor %}
-      </h3>
+          </div>
+          </h3>
+        </div>
+      </div>
+
     </div>
   </div>
-
-</div>
-</div>
 </div>
 </div>
 </div>

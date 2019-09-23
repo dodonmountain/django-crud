@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article
+from .models import Article, Comment
 
 
 class ArticleForm(forms.ModelForm):
@@ -10,10 +10,24 @@ class ArticleForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(
                 attrs={
-                    'placeholder': '제목을 입력하세요'
+                    'placeholder': '제목을 입력하세요',
                 }
             )
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+                'title': forms.TextInput(
+                    attrs={
+                        'placeholder': '댓글을 입력하세요',
+                    }
+                )
+        }
+
+
 
 # class ArticleForm(forms.Form):
 #     title = forms.CharField(max_length=140, label='제목',widget=forms.TextInput(

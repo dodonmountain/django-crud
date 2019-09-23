@@ -9,17 +9,16 @@
     <h1>글 수정 <small>글을 고쳐 주세요.</small></h1>
   </div>
 {% endif %}
-<div class="container">
   <br>
-  <div class="form-group">
-      <form action="" method="POST">
-          {% csrf_token %}
-          {{ article_form.as_p }}
-          <input type="submit" value="aa">
-        </form>
-  </div>
-  <input style="height: 5rem; font-size: 3rem;" type="submit" value="Save!">
-</form>
+  {% load bootstrap4 %}
+<div class="container">
+  <form action="" method="post" class="form">
+      {% csrf_token %}
+      {% bootstrap_form article_form %}
+      {% buttons %}
+          <button type="submit" class="btn btn-primary">완료</button>
+      {% endbuttons %}
+  </form>
 </div>
 
 

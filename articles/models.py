@@ -13,7 +13,7 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
+    # reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.pk} - {self.title}'
