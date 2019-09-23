@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages', # messages framework
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', # static file < css, js, images
     'django_extensions',
 ]
 
@@ -120,5 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' # static file을 모두 모아서 해당 URL로 표현한다. (물리폴더를 뜻하는 것이 아님)
+# /static/bootstrap
+# /static/articles/style.css
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'curd', 'assets' )
+]
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'

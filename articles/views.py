@@ -58,8 +58,8 @@ def delete(request, article_pk):
     if request.method == 'POST':
         article.delete()
         return redirect('articles:index')
-    # else:
-    #     return redirect('articles:index')
+    else:
+        return redirect('articles:index')
 
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
