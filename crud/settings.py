@@ -124,6 +124,9 @@ STATIC_URL = '/static/' # static file을 모두 모아서 해당 URL로 표현�
 # /static/bootstrap
 # /static/articles/style.css
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'curd', 'assets' )
+    os.path.join(BASE_DIR, 'crud', 'assets' )
 ]
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

@@ -26,7 +26,7 @@ def create(request):
     if request.method == 'POST':
         # th = request.POST.get('th')
         # tb = request.POST.get('tb')
-        article_form = ArticleForm(request.POST)
+        article_form = ArticleForm(request.POST, request.FILES)
         # validation
         if article_form.is_valid():
             article = article_form.save()
@@ -52,7 +52,7 @@ def detail(request, article_pk):
     }
     return render(request, 'articles/detail.html',context)
 
-@require_POST
+
 def delete(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     if request.method == 'POST':

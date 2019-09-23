@@ -13,6 +13,7 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(blank=True)
     # reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -27,7 +28,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=140)
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-
+    
 
     # on_delete
     # 1. CASCADE: 글이 삭제되었을 때 모든 댓글을 삭제

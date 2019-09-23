@@ -19,10 +19,13 @@
     {{ articles.content }}
   </p>
   </div>
+  <div>
+    <img src="{{ article.image.url }}" alt="">
+  </div>
   <form class="btn btn-border" action="{% url 'articles:index' %}" role="button">
     <button class="btn btn-warning btn-border" type="submit">HOME</button>
   </form>
-  <form class="btn btn-border" action="{% url 'articles:delete' articles.pk %}}" role="button" method='POST'>
+  <form class="btn btn-border" action="{% url 'articles:delete' articles.pk %}" role="button" method='POST'>
     {% csrf_token %}
     <button class="btn btn-warning btn-border" type="submit">DELETE</button>
   </form>
