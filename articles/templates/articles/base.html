@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    <div class="alert alert-info" role="alert">
+        어서오세요.<a href="#" class="alert-link">{{ user.username }}</a>님 환영합니다.
+      </div>
   {% if messages %}
   <ul class="messages">
       {% for message in messages %}
