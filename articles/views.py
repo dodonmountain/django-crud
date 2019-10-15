@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from .models import Article, Comment
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ArticleForm, CommentForm
 
@@ -22,6 +23,7 @@ def index(request):
 # def new(request):
 #     return render(request, 'articles/new.html')
 
+@login_required
 def create(request):
     if request.method == 'POST':
         # th = request.POST.get('th')

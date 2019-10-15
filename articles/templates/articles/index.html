@@ -2,7 +2,11 @@
 {% block body %}
 <div class="jumbotron">
     <h1>CRUD</h1>
+    {% if user.is_authenicated%}
     <a class="btn btn-success btn-lg mx-auto" href="{% url 'articles:create' %}" role="button">새 글</a>
+    {% else %}
+    <a class="btn btn-success btn-lg mx-auto" href="" role="button">새 글</a>
+    {% endif %}
 </div>
 <div class="container">
   <ul class="list-group shadow">

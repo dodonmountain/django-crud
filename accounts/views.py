@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login
-
+from django.contrib.auth import logout as auth_logout
 # Create your views here.
 
 def signup(request):
@@ -24,10 +24,14 @@ def login(request):
             # 로그인
             user = form.get_user()
             auth_login(request, user)
-            return redirect('articles:index')
+            return redirect(request.GET.get('next') or 'articles:index') #단축평가 활용 NONE 리턴시 
     else:
         form = AuthenticationForm()
     context = {
         'form': form,
     }
     return render(request, 'accounts/login.html', context)
+
+def logout(request):
+    auth_logout(request)
+    return redirect('articles:index')
