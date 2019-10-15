@@ -1,5 +1,6 @@
 from django.db import models
-
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 # Reporter(1) - Article(N)
 # reporter - name
 
@@ -14,6 +15,16 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(blank=True)
+    # ImageSpecField: 인풋 하나만 받고 잘라서 저장
+    # ProcessedImageField : 인풋 받은 것을 잘라서 저장
+    # resize to fill : 300 * 300
+    # resize to fit : 긴쪽을 300에 맞추고 비율에 맞게 자름
+    image_thumbnail = ProcessedImageField(
+        blank=True,
+        processors=[ResizeToFill(300, 300)],
+        format='JPEG',
+        options={'quality': 80},
+    )
     # reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
     def __str__(self):

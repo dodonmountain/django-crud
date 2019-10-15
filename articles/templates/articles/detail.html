@@ -16,12 +16,10 @@
 <div class="container">
   <div class="blog-post">
     <p class="text-xl-left">
-    {{ articles.content }}
-  </p>
+      {{ articles.content }}
+    </p>
   </div>
-  <div>
-    <img src="{{ article.image.url }}" alt="">
-  </div>
+  <img src="{{ articles.image.url }}">
   <form class="btn btn-border" action="{% url 'articles:index' %}" role="button">
     <button class="btn btn-warning btn-border" type="submit">HOME</button>
   </form>

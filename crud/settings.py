@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages', # messages framework
     'django.contrib.staticfiles', # static file < css, js, images
     'django_extensions',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -129,4 +130,4 @@ STATICFILES_DIRS = [
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/' 
