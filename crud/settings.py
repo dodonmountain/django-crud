@@ -132,3 +132,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/' 
+
+# AUTH
+LOGIN_URL = 'accounts/login/' # @login_required fallback default !'accounts/login/' 

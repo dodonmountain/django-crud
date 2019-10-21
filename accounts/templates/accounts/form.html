@@ -3,9 +3,9 @@
 
 {% load bootstrap4 %}
 <div class="container">
-  <form action="" method="post" class="form" enctype="multipart/form-data">
+  <form action="" method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form uc_form %}
+      {% bootstrap_form form %}
       {% buttons %}
           <button type="submit" class="btn btn-primary">완료</button>
       {% endbuttons %}

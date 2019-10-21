@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserChangeForm
 # Create your views here.
 
 def signup(request):
     if request.method == 'POST':
-        uc_form = UserCreationForm(request.POST)
-        if uc_form.is_valid():
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
             account = uc_form.save()
             return redirect('articles:index')
     else:
@@ -15,7 +18,7 @@ def signup(request):
     context = {
         'uc_form':uc_form,
     }
-    return render(request, 'accounts/signup.html', context)
+    return render(request, 'accounts/form.html', context)
 
 def login(request):
     if request.method == 'POST':
@@ -35,3 +38,41 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('articles:index')
+
+# @login_required
+# def update(request):
+#     form = UserChangeForm(request.POST)
+#     if form.is_valid():
+#         account = form.save()
+#         return redirect('admin')
+#     else: 
+#         form = UserChangeForm(request.POST)
+
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:login')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/form.html', context)
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST) # 반드시 첫번째 인자로 user 객체를 사용
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('accounts:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/form.html', context)
