@@ -135,3 +135,4 @@ MEDIA_URL = '/media/'
 
 # AUTH
 LOGIN_URL = 'accounts/login/' # @login_required fallback default !'accounts/login/' 
+AUTH_USER_MODEL = 'accounts.User' # default == ' auth.User'

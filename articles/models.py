@@ -1,8 +1,15 @@
 from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
+from django.contrib.auth import get_user_model
+from django.conf import settings
 # Reporter(1) - Article(N)
 # reporter - name
+
+
+class TimestampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Reporter(models.Model):
@@ -14,6 +21,8 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
     # ImageSpecField: 인풋 하나만 받고 잘라서 저장
     # ProcessedImageField : 인풋 받은 것을 잘라서 저장
@@ -25,21 +34,15 @@ class Article(models.Model):
         format='JPEG',
         options={'quality': 80},
     )
-    # reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.pk} - {self.title}'
-
-
-# Article(1) - Comment(N)
-# comment - content
-
 
 class Comment(models.Model):
     content = models.CharField(max_length=140)
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # on_delete
     # 1. CASCADE: 글이 삭제되었을 때 모든 댓글을 삭제

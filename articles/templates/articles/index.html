@@ -2,10 +2,15 @@
 {% block body %}
 <div class="jumbotron">
     <h1>CRUD</h1>
-    {% if user.is_authenicated%}
-    <a class="btn btn-success btn-lg mx-auto" href="{% url 'articles:create' %}" role="button">새 글</a>
+    {% if user.is_authenticated %}
+    <form  action="{% url 'articles:create' %}" method="post">
+      {% csrf_token %}
+      <input class="btn btn-success btn-lg mx-auto" type="submit" value="새 글">
+    </form>
     {% else %}
-    <a class="btn btn-success btn-lg mx-auto" href="" role="button">새 글</a>
+    <form  action="{% url 'articles:create' %}" method="post">
+        <input class="btn btn-success btn-lg mx-auto" type="submit" value="새 글">
+    </form>
     {% endif %}
 </div>
 <div class="container">
