@@ -1,0 +1,11 @@
+<div class="alert alert-info" role="alert">
+  {% if user.is_authenticated %}
+  {% load gravatar %}
+  <img src="{{ user.email|makehash }}" alt="">
+  어서오세요.<a href="#" class="alert-link">{{ user.username }}</a>님 환영합니다.
+  <a href="{% url 'accounts:logout' %}">로그아웃</a>
+  {% else %}
+  <a href="{% url 'accounts:signup' %}" class="alert-link">회원가입</a>
+  <a href="{% url 'accounts:login' %}" class="alert-link">로그인</a>
+  {% endif %}
+</div>

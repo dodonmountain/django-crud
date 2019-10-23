@@ -1,0 +1,22 @@
+{% extends 'articles/base.html' %}
+
+{% block body %}
+
+<h1>
+  {{user_profile.username}}님의 작성글
+  {{ user_profile.article_set.count }} 개
+</h1>
+{% for article in user_profile.article_set.all %}
+<h2> ::: {{ article.title }} ::: {{article.created_at }}</h2>
+{% endfor %}
+<h1>작성 댓글
+    {{ user_profile.comment_set.count }} 개
+    </h1>
+<hr>
+{% for comment in user_profile.comment_set.all %}
+<h4>{{ comment.content }}</h4>
+{% endfor %}
+{% for like in user_profile.like_article_set.all %}
+<h4>{{ like.content }}</h4>
+{% endfor %}
+{% endblock %}

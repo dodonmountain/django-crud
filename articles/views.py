@@ -80,7 +80,7 @@ def update(request, article_pk):
     else:
         return HttpResponseForbidden()
 
-
+@login_required
 def comment_create(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     comment_form = CommentForm(request.POST)

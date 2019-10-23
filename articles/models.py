@@ -6,7 +6,6 @@ from django.conf import settings
 # Reporter(1) - Article(N)
 # reporter - name
 
-
 class TimestampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserChangeForm,CustomUserCreationForm
-# Create your views here.
-
+from django.http import HttpResponseForbidden
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -76,3 +75,14 @@ def password_change(request):
         'form': form,
     }
     return render(request, 'accounts/form.html', context)
+
+@login_required
+def profile(request, account_pk):
+    user = get_object_or_404(get_user_model(), pk=account_pk)
+    if account_pk == request.user.pk:
+        context = {
+            'user_profile': user,
+        }
+        return render(request, 'accounts/profile.html', context)
+    else:
+        return HttpResponseForbidden

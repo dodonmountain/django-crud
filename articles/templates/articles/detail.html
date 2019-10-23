@@ -33,11 +33,19 @@
     <button class="btn btn-warning btn-border" type="submit">MOD</button>
   </form>
 </div>
-<p>{{ articles.like_users.count }}명이 이 글을 좋아합니다.</p>
-<a href="{% url 'articles:like' articles.pk %}">좋아요</a>
 
 
 <div class="container">
+  <div class="d-flex align-items-center">
+    <h4>
+      {% if articles.user in articles.like_users.all %}
+      <a href="{% url 'articles:like' articles.pk %}"><i class="far fa-thumbs-up fa-2x"></i></a>
+      {% else %}
+      <a href="{% url 'articles:like' articles.pk %}"><i class="fas fa-thumbs-up fa-2x"></i></a>
+      {% endif %}
+    </h4>
+    <p class="">{{ articles.like_users.count }}명이 이 글을 좋아합니다.</p>
+  </div>
   <div class="list">
     {% load bootstrap4 %}
     <h3>댓글 수:{{ articles.comment_set.all.count }}</h3>
@@ -46,7 +54,8 @@
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{ i.content }} - {{ i.user }}
-        <form style="display: inline;" action="{% url 'articles:comment_delete' articles.pk i.pk %}" role="button" method='POST'>
+        <form style="display: inline;" action="{% url 'articles:comment_delete' articles.pk i.pk %}" role="button"
+          method='POST'>
           {% csrf_token %}
           <button class="badge badge-primary badge-pill" type="submit">DELETE</button>
         </form>
