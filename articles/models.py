@@ -23,6 +23,11 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='like_articles',
+        blank=True
+        )
     image = models.ImageField(blank=True)
     # ImageSpecField: 인풋 하나만 받고 잘라서 저장
     # ProcessedImageField : 인풋 받은 것을 잘라서 저장

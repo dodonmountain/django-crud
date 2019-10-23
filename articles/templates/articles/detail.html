@@ -33,8 +33,8 @@
     <button class="btn btn-warning btn-border" type="submit">MOD</button>
   </form>
 </div>
-
-
+<p>{{ articles.like_users.count }}명이 이 글을 좋아합니다.</p>
+<a href="{% url 'articles:like' articles.pk %}">좋아요</a>
 
 
 <div class="container">
