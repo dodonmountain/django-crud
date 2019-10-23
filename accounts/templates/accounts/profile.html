@@ -1,13 +1,23 @@
 {% extends 'articles/base.html' %}
 
 {% block body %}
-
+{% with user_profile.followers.all as followers %}
 <h1>
   {{user_profile.username}}님의 작성글
+  <a href="{% url 'accounts:follow' user_profile.pk %}">
+  {% if user in followers %}
+    unfollow
+  {% else %}
+    follow
+  {% endif %}
+  </a>
+  <h2>팔로우 : {{ user_profile.followings.all.count }} </h2>
+  <h2>팔로워 : {{ followers|length }}</h2>
+{% endwith %}
   {{ user_profile.article_set.count }} 개
 </h1>
 {% for article in user_profile.article_set.all %}
-<h2> ::: {{ article.title }} ::: {{article.created_at }}</h2>
+<h2> ::: {{ article.title }} ::: {{ article.created_at }}</h2>
 {% endfor %}
 <h1>작성 댓글
     {{ user_profile.comment_set.count }} 개
