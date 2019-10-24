@@ -14,13 +14,11 @@
   </div>
 </div>
 <hr>
+<p>{{ articles.content|linebreaksbr }}</p>
+{% load hashtag %}
+<p>{{ articles|make_link|safe|linebreaksbr }} </p>
 <div class="container">
-  <div class="blog-post">
-    <p class="text-xl-left">
-      {{ articles.content }}
-    </p>
-  </div>
-  <img src="{{ articles.image.url }}">
+  {% comment %} <img src="{{ articles.image.url }}"> {% endcomment %}
   <form class="btn btn-border" action="{% url 'articles:index' %}" role="button">
     <button class="btn btn-warning btn-border" type="submit">HOME</button>
   </form>
@@ -36,6 +34,7 @@
 
 
 <div class="container">
+
   <div class="d-flex align-items-center">
     <h4>
       {% if articles.user in articles.like_users.all %}

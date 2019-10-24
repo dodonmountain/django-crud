@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ArticleForm, CommentForm
-from .models import Article, Comment
+from .models import Article, Comment, HashTag
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseForbidden
+
 
 def index(request):
     articles = Article.objects.all()
@@ -30,7 +31,13 @@ def create(request):
             article = article_form.save(commit=False)
             article.user = request.user
             article.save()
-            return redirect('articles:detail', article.pk)
+            # 해쉬태그 저장 및 연결
+            for word in article.content.split():
+                if word.startswith('#'):
+                    hashtag, created = HashTag.objects.get_or_create(
+                        content=word)
+                    article.hashtags.add(hashtag)
+                return redirect('articles:detail', article.pk)
     else:
         article_form = ArticleForm()
     context = {
@@ -38,15 +45,15 @@ def create(request):
     }
     return render(request, 'articles/form.html', context)
 
-
 def detail(request, article_pk):
-    articles = Article.objects.get(pk=article_pk)
+    # article = Article.objects.get(pk=article_pk)
+    articles = get_object_or_404(Article, pk=article_pk)
     comments = articles.comment_set.all()
-    comment_form = CommentForm(request.POST)
+    comment_form = CommentForm()
     context = {
         'articles': articles,
         'comments': comments,
-        'comment_form': comment_form,
+        'comment_form': comment_form
     }
     return render(request, 'articles/detail.html', context)
 
@@ -62,7 +69,6 @@ def delete(request, article_pk):
         return HttpResponseForbidden()
 
 
-
 def update(request, article_pk):
     article = Article.objects.get(id=article_pk)
     if article.user == request.user:
@@ -70,7 +76,13 @@ def update(request, article_pk):
             article_form = ArticleForm(request.POST, instance=article)
             if article_form.is_valid():
                 article = article_form.save()
-                return redirect('articles:detail', article.pk)
+                article.hashtags.clear()
+                for word in article.content.split():
+                    if word.startswith('#'):
+                        hashtag, created = HashTag.objects.get_or_create(
+                            content=word)
+                        article.hashtags.add(hashtag)
+                    return redirect('articles:detail', article.pk)
         else:
             article_form = ArticleForm(instance=article)
         context = {
@@ -79,6 +91,7 @@ def update(request, article_pk):
         return render(request, 'articles/form.html', context)
     else:
         return HttpResponseForbidden()
+
 
 @login_required
 def comment_create(request, article_pk):
@@ -106,6 +119,7 @@ def comment_delete(request, article_pk, comment_id):
     else:
         return HttpResponseForbidden()
 
+
 @login_required
 def like(request, article_pk):
     article = Article.objects.get(pk=article_pk)
@@ -116,4 +130,10 @@ def like(request, article_pk):
 
     return redirect('articles:detail', article_pk)
 
-    
+
+def hashtag(request, hashtag_pk):
+    hashtag = get_object_or_404(HashTag, pk=hashtag_pk)
+    context = {
+        'hashtag': hashtag,
+    }
+    return render(request, 'articles/hashtag.html', context)

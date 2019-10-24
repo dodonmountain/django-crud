@@ -3,8 +3,11 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django.contrib.auth import get_user_model
 from django.conf import settings
-# Reporter(1) - Article(N)
-# reporter - name
+
+class HashTag(models.Model):
+    content = models.TextField(unique=True)
+    def __str__(self):
+        return self.content
 
 class TimestampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -27,6 +30,11 @@ class Article(models.Model):
         related_name='like_articles',
         blank=True
         )
+    hashtags = models.ManyToManyField(
+        HashTag,
+        blank=True,
+        related_name='articles',
+    )
     image = models.ImageField(blank=True)
     # ImageSpecField: 인풋 하나만 받고 잘라서 저장
     # ProcessedImageField : 인풋 받은 것을 잘라서 저장
