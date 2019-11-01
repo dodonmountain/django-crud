@@ -1,16 +1,31 @@
 {% extends 'articles/base.html' %}
 {% block body %}
-
+{% load socialaccount %}
 {% load bootstrap4 %}
-<div class="container">
-  <form action="" method="post" class="form" enctype="multipart/form-data">
+{% load static %}
+<div style="height:815px;width:350px;margin-top:10%" class="container flex-nowrap align-content-center">
+  <div class="border bg-white" style="height: 380px;width:350px;">
+    <h1 style="font-family: 'Engagement', cursive;font-size:56px" class="text-center mx-auto mt-3 mb-4">Instagram</h1>
+    <form action="" method="post" class="form mx-4 p-1" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form form %}
+      {% bootstrap_field form.username show_label=False placeholder='전화번호, 사용자 이름, 또는 이메일' %}
+      {% bootstrap_field form.password show_label=False placeholder='비밀번호' %}
       {% buttons %}
-          <button type="submit" class="btn btn-primary">완료</button>
+        <button style="background:#3897f0;height:33px;line-height: 16px;" type="submit" class="btn btn-block text-white">로그인</button>
       {% endbuttons %}
-  </form>
+      
+    </form>
+    <div class="row mt-2">
+        <div class="col border-top mt-2 ml-5"></div>
+        <div style="color:#999;font-size:13.33px" class="mx-3 font-weight-bold">또는</div>
+        <div class="col border-top mt-2 mr-5"></div>
+      </div>
+      <div class="text-center mb-3">
+
+      <a href="{% provider_login_url 'kakao' %}">카카오 로그인</a>
+    </div>
+  </div>
 </div>
 
-
+{% include '_footer.html' %}
 {% endblock %}

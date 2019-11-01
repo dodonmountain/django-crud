@@ -1,30 +1,70 @@
 {% extends 'articles/base.html' %}
 {% block body %}
-<div class="jumbotron">
-    <h1>CRUD</h1>
-    {% if user.is_authenticated %}
-    <form  action="{% url 'articles:create' %}" method="post">
-      {% csrf_token %}
-      <input class="btn btn-success btn-lg mx-auto" type="submit" value="새 글">
-    </form>
-    {% else %}
-    <form  action="{% url 'articles:create' %}" method="post">
-        <input class="btn btn-success btn-lg mx-auto" type="submit" value="새 글">
-    </form>
-    {% endif %}
+{% load static %}
+<div style="width:100vw;height:100vh" class="container-fluid p-3">
+  <div class="row mx-5 px-5">
+    <div
+      style="top:57px;left:-12px;background-image: url({% static '43cc71bb1b43.png' %}); background-repeat: no-repeat;"
+      class="col-3 mt-5 offset-3 mr-4">
+    </div>
+
+
+
+    <!-- 오른쪽 -->
+    <div style="height:645px;margin-top:45px" class="customcol bg-white container border">
+      <!-- 로고 -->
+      <div class="row">
+        <h1 style="font-family: 'Engagement', cursive;font-size:62px" class="text-center mx-auto my-2">Instagram</h1>
+        <h6 class="mx-auto mb-1" style="font-size:17px;font-weight:600;color: #999;text-align: center;">친구들의 사진과 동영상을
+          보려면<br>가입하세요.</h6>
+      </div>
+      <div class="row flex-nowrap justify-content-center mt-3 mb-3">
+        <button
+          style="background:#3897f0;height: 31px;line-height: 15px;margin: 0 40px;font-size: 0.9rem;font-weight: 500;"
+          type="button" class="btn btn-block text-white"><i class="fab fa-facebook-square mr-2"
+            style="font-size:17px"></i>Facebook으로 로그인</button>
+      </div>
+      <!-- 또는 -->
+      <div class="row mt-2">
+        <div class="col border-top mt-2 ml-5"></div>
+        <div style="color:#999;font-size:13.33px" class="mx-3 font-weight-bold">또는</div>
+        <div class="col border-top mt-2 mr-5"></div>
+      </div>
+      <!-- 폼 -->
+      <form class="px-4 mt-3">
+        <div class="form-group row mx-auto mb-2">
+          <input type="email" class="form-control form-control-sm p-2 myForm" id="inputEmail"
+            placeholder="휴대폰 번호 또는 이메일 주소">
+        </div>
+        <div class="form-group mb-2">
+          <input type="text" class="form-control form-control-sm myForm" id="inputName" placeholder="성명">
+        </div>
+        <div class="form-group mb-2">
+          <input type="text" class="form-control form-control-sm myForm" id="inputID" placeholder="사용자 이름">
+        </div>
+        <div class="form-group mb-2">
+          <input type="password" class="form-control form-control-sm myForm" id="inputPW" placeholder="비밀번호">
+        </div>
+        <div class="mx-auto mt-3">
+          <button style="background:#3897f0;height: 33px;" type="submit"
+            class="btn btn-block text-white font-weight-bold py-1">가입</button>
+        </div>
+      </form>
+      <!-- 동의 문구 -->
+      <div class="row mx-5 mt-3">
+        <p style="margin:0px 10px 60px 10px;text-align: center;line-height: 17px;font-size:13px;color:#999999">가입하면
+          Instagram의 <b>약관, 데이터 정책</b> 및 <b>쿠키 정책</b>에 동의하게 됩니다.</p>
+      </div>
+      <div style="height:20px;margin:-4.6%;background-color: #fafafa;" class="border border-left-0 border-right-0">
+      </div>
+      <div class="row mt-3">
+        <p class="mx-auto form-control-sm mt-3">계정이 있으신가요? <a class="text-primary" href="{% url 'accounts:login' %}">로그인</a></p>
+
+      </div>
+    </div>
+    <div class="col mx-5"></div>
+  </div>
 </div>
-<div class="container">
-  <ul class="list-group shadow">
-    {% for article in articles %}
-    <li class="list-group-item" style="background-color:rgb(34, 228, 163);">
-      No.{{ article.id }}　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　_생성일:{{ article.created_at }}
-    </li>
-    <li class="list-group-item">
-      <h3><a href="{% url 'articles:detail' article.pk %}"><b>{{ article.title }}</b></a></h3>
-    </li>
-    <li class="list-group-item bg-primary"><a href="{% url 'articles:detail' article.pk %}"><i class="far fa-eye">자세히 보러가기</i></a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+
+{% include '_footer.html' %}
 {% endblock %}

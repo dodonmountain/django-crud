@@ -1,7 +1,7 @@
 <div class="alert alert-info" role="alert">
   {% if user.is_authenticated %}
   {% load gravatar %}
-  <img src="{{ user.email|makehash }}" alt="">
+  <img src="{{ user|makehash }}" alt="">
   어서오세요.<a href="#" class="alert-link">{{ user.username }}</a>님 환영합니다.
   <a href="{% url 'accounts:logout' %}">로그아웃</a>
   {% else %}

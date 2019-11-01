@@ -4,21 +4,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment, HashTag
-from django.contrib.auth import get_user_model
-from django.http import HttpResponseForbidden
+from django.contrib.auth import login as auth_login
+from django.http import HttpResponseForbidden,JsonResponse
+from django.contrib.auth.forms import AuthenticationForm
+from accounts.forms import CustomUserCreationForm
 
 
 def index(request):
-    articles = Article.objects.all()
-    titles = []
-    contents = []
-    for i in articles:
-        titles.append(i.title)
-        contents.append(i.content)
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = CustomUserCreationForm()
     context = {
-        'articles': articles,
-        'titles': titles,
-        'contents': contents,
+        'form': form,
     }
     return render(request, 'articles/index.html', context)
 
@@ -123,12 +124,19 @@ def comment_delete(request, article_pk, comment_id):
 @login_required
 def like(request, article_pk):
     article = Article.objects.get(pk=article_pk)
+    is_liked = False
     if request.user in article.like_users.all():
         article.like_users.remove(request.user)
+        is_liked = False
     else:
         article.like_users.add(request.user)
-
-    return redirect('articles:detail', article_pk)
+        is_liked = True
+    count = article.like_users.count()
+    context ={
+        'is_liked': is_liked,
+        'count':count,
+    }
+    return JsonResponse(context)
 
 
 def hashtag(request, hashtag_pk):
@@ -137,3 +145,13 @@ def hashtag(request, hashtag_pk):
         'hashtag': hashtag,
     }
     return render(request, 'articles/hashtag.html', context)
+
+def explore(request):
+    from itertools import chain
+    followings = request.user.followings.all()
+    followings = chain(followings, [request.user])
+    articles = Article.objects.filter(user_in=followings).order_by('created_at')
+    context = {
+        'articles':articles
+    }
+    return render(request, 'articles')

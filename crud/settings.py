@@ -22,6 +22,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages', # messages framework
     'django.contrib.staticfiles', # static file < css, js, images
+    # all - auth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+    # ---------------------------------------------
     'django_extensions',
     'imagekit',
 ]
@@ -108,7 +115,7 @@ STATIC_URL = '/static/' # static file을 모두 모아서 해당 URL로 표현�
 # /static/bootstrap
 # /static/articles/style.css
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'crud', 'assets' )
+    os.path.join(BASE_DIR, 'assets' )
 ]
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -118,3 +125,10 @@ MEDIA_URL = '/media/'
 # AUTH
 LOGIN_URL = 'accounts/login/' # @login_required fallback default !'accounts/login/' 
 AUTH_USER_MODEL = 'accounts.User' # default == ' auth.User'
+
+# all - auth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+SITE_ID = 1 # django.contib.sites --> SITE_ID 부여
+LOGIN_REDIRECT_URL = '/articles/'

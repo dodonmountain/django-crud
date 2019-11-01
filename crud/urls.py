@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from articles import views
+from django.shortcuts import redirect
+
+def red(request):
+    return redirect('articles:index')
 
 urlpatterns = [
+    path('', red),
     path('admin/', admin.site.urls),
     path('articles/', include('articles.urls')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')), # 반드시 accounts 밑에
     path('hashtags/<int:hashtag_pk>', views.hashtag, name='hashtag'),
 ]
